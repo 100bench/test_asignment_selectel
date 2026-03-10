@@ -12,3 +12,13 @@ type Rule interface {
 	Name() string
 	Check(msg string) *Diagnostic
 }
+
+// All returns the default ordered set of rules applied to every log message.
+func All() []Rule {
+	return []Rule{
+		&LowercaseRule{},
+		&EnglishRule{},
+		&SpecialCharsRule{},
+		&SensitiveRule{Keywords: DefaultSensitiveKeywords},
+	}
+}
